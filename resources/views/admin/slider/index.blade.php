@@ -6,13 +6,17 @@
             <!-- <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             </div> -->
 
-            <!-- ALL ACTIVE Brands LIST -->
+            <!-- ALL ACTIVE Sliders LIST -->
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div style="margin-left: 85%;">
+                        <a href="{{ route('add.slider') }}"><button class="btn btn-info">Add Slider</button></a><br><br>
+                    </div>
+
+                    <div class="col-md-12">
                         <div class="card">
                             
-                            <!-- SUCCESS MESSAGE IF brand IS CREATED SUCCESSFULLY. -->
+                            <!-- SUCCESS MESSAGE IF slider IS CREATED SUCCESSFULLY. -->
                             @if(session('pdelete'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <strong>{{ session('pdelete') }}</strong>
@@ -44,7 +48,7 @@
                             </div>
                             @endif
  
-                            <!-- SUCCESS MESSAGE IF THE brand IS DELETED -->
+                            <!-- SUCCESS MESSAGE IF THE slider IS DELETED -->
                             @if(session('deleted'))
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <strong>{{ session('deleted') }}</strong>
@@ -55,7 +59,7 @@
                             </div>
                             @endif
 
-                            <!-- SUCCESS MESSAGE IF brand IS UPDATED SUCCESSFULLY. -->
+                            <!-- SUCCESS MESSAGE IF slider IS UPDATED SUCCESSFULLY. -->
                             @if(session('updated'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <strong>{{ session('updated') }}</strong>
@@ -66,88 +70,57 @@
                             </div>
                             @endif
 
-                            <div class="card-header"> All Brands</div>
+                            <div class="card-header"> All Sliders</div>
 
                             <table class="table ">
                                 <thead>
                                     <tr>
-                                        <th scope="col">SL No.</th>
-                                        <th scope="col">Brand Name</th>
-                                        <th scope="col">Brand Logo</th>
-                                        <th scope="col">Created By</th>
-                                        <th scope="col">Created At</th>
-                                        <th scope="col">Updated At</th>
-                                        <th scope="col">Actions</th>
+                                        <th scope="col" width="5%">SL No.</th>
+                                        <th scope="col" width="15%">Slider Title</th>
+                                        <th scope="col" width="15%">Slider Descrip</th>
+                                        <th scope="col" width="15%">Slider Image</th>
+                                        <th scope="col" width="15%">Created At</th>
+                                        <th scope="col" width="15%">Updated At</th>
+                                        <th scope="col" width="15%">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- @php($count = 1) -->
+                                    @php($count = 1)
 
-                                    @foreach($brands as $brand)
+                                    @foreach($sliders as $slider)
                                     <tr>
-                                        <th scope="row">{{ $brands->firstItem() + $loop->index }}</th>
-                                        <td>{{ $brand->brand_name }}</td>
-                                        <td><img src="{{ asset($brand->brand_image) }}" style="height:40px; width:70px" alt="{{ $brand->brand_name . ' Logo' }}"></td>
+                                        <th scope="row">{{ $count++ }}</th>
+                                        <td>{{ $slider->title }}</td>
+                                        <td>{{ $slider->description }}</td>
+                                        <td><img src="{{ asset($slider->image) }}" style="height:40px; width:70px" alt="{{ $slider->slider_name . ' Logo' }}"></td>
                                         <td>Blank</td>
                                         <td>
-                                            @if($brand->created_at == NULL)
+                                            @if($slider->created_at == NULL)
                                             <span class="text-danger">No Date Set</span>
                                             @else
-                                            {{ Carbon\Carbon::parse($brand->created_at)->diffForHumans() }}
+                                            {{ Carbon\Carbon::parse($slider->created_at)->diffForHumans() }}
                                             @endif
                                         </td>
                                         <td>
-                                            @if($brand->updated_at == NULL)
+                                            @if($slider->updated_at == NULL)
                                             <span class="text-danger">No Date Set</span>
                                             @else
-                                            {{ Carbon\Carbon::parse($brand->updated_at)->diffForHumans() }}
+                                            {{ Carbon\Carbon::parse($slider->updated_at)->diffForHumans() }}
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ url('brand/edit/'.$brand->id) }}" class="btn btn-info"><i class="bi bi-pencil-square"></i></a>
-                                            <a href="{{ url('brand/delete/'.$brand->id) }}" onclick="return confirm('Are you sure ?')" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                                            <a href="{{ url('slider/edit/'.$slider->id) }}" class="btn btn-info"><i class="bi bi-pencil-square"></i></a>
+                                            <a href="{{ url('slider/delete/'.$slider->id) }}" onclick="return confirm('Are you sure ?')" class="btn btn-danger"><i class="bi bi-trash"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $brands->links() }}  <!-- PAGINATION LINKS USING LARAVEL -->
+                            
                         </div>
                     </div>
 
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header"> Add Brand</div>
-
-                            <div class="card-body">
-                                <form action="{{ route('store.brand') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label for="brand">Brand Name</label>
-                                        <input type="text" name="brand_name" class="form-control" id="brand">
-
-                                        @error('brand_name')
-                                        <span class="text-danger">
-                                            {{ $message }}
-                                        </span>
-                                        @enderror
-                                    </div><br>
-
-                                    <div class="form-group">
-                                        <label for="brand">Brand Image</label>
-                                        <input type="file" name="brand_image" class="form-control" id="brand_image">
-
-                                        @error('brand_image')
-                                        <span class="text-danger">
-                                            {{ $message }}
-                                        </span>
-                                        @enderror
-                                    </div><br>
-                                    <button type="submit" class="btn btn-success">Add Brand</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                   
                 </div>
             </div><br>
 

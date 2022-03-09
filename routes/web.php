@@ -6,10 +6,12 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\MultiPicController;
+use App\Http\Controllers\HomeController;
 use App\Models\User;
 
 Route::get('/', function () {
-    return view('welcome');
+    $brands = DB::table('brands')->get();
+return view('home',compact('brands'));
 });
 
 // Route::get('about',function(){
@@ -61,6 +63,14 @@ Route::get('/email/verify',function(){
 
 // LOG OUT ROUTE
 Route::get('/user/logout',[BrandController::class,'logout'])->name('user.logout');
+
+// HOME PAGE ROUTES
+Route::get('/home/slider',[HomeController::class,'slider'])->name('home.slider');
+Route::get('/slider/edit/{id}',[HomeController::class,'edit'])->name('edit.slider');
+Route::post('/slider/update/{id}',[HomeController::class,'update'])->name('edit.slider');
+Route::get('/add/slider',[HomeController::class,'add'])->name('add.slider');
+Route::post('/store/slider',[HomeController::class,'store'])->name('store.slider');
+Route::get('/slider/delete/{id}',[HomeController::class,'delete']);
 
 
 
