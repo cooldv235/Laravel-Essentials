@@ -23,48 +23,7 @@
                             </div>
                             @endif
 
-                            <!--  SUCCESS MESSAGE IF BRAND IS ADDED SUCCESFULLY. -->
-                            @if(session('success'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong>{{ session('success') }}</strong>
-
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            @endif
-
-                            @if(session('restore'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong>{{ session('restore') }}</strong>
-
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            @endif
- 
-                            <!-- SUCCESS MESSAGE IF THE brand IS DELETED -->
-                            @if(session('deleted'))
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ session('deleted') }}</strong>
-
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            @endif
-
-                            <!-- SUCCESS MESSAGE IF brand IS UPDATED SUCCESSFULLY. -->
-                            @if(session('updated'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong>{{ session('updated') }}</strong>
-
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            @endif
+                            
 
                             <div class="card-header"> All Brands</div>
 

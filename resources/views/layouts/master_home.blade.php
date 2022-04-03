@@ -43,8 +43,7 @@
   <!-- HEADER OF HOME PAGE -->
   @include('layouts.body.header')
 
-  <!-- SLIDER OF HOME PAGE -->
-  @include('layouts.body.slide')
+  
 
   <main id="main">
     @yield('home_content')

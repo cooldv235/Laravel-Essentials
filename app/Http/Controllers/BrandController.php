@@ -57,8 +57,13 @@ class BrandController extends Controller
             'created_at' => Carbon::now(),
         ]);
 
+        $notification = [
+            'message' => 'Brand Created Successfully.',
+            'alert-type' => 'success'
+        ];
+
         // REDIRECT BACK TO PAGE
-        return Redirect()->back()->with('success', 'Brand Added Successfully.');
+        return Redirect()->back()->with($notification);
     }
 
     public function edit($id)
@@ -104,8 +109,13 @@ class BrandController extends Controller
                 'updated_at' => Carbon::now(),
             ]);
 
+            $notification = [
+                'message' => 'Brand Updated Successfully.',
+                'alert-type' => 'info'
+            ];
+
             // REDIRECT BACK TO PAGE
-            return Redirect()->route('all.brand')->with('success', 'Brand Updated Successfully.');
+            return Redirect()->back()->with($notification);
         } else {
 
             // INSERT BRAND DATA IN TO THE DB
@@ -114,8 +124,13 @@ class BrandController extends Controller
                 'updated_at' => Carbon::now(),
             ]);
 
+            $notification = [
+                'message' => 'Brand Updated Successfully.',
+                'alert-type' => 'info'
+            ];
+
             // REDIRECT BACK TO PAGE
-            return Redirect()->route('all.brand')->with('success', 'Brand Updated Successfully.');
+            return Redirect()->back()->with($notification);
         }
     }
 
@@ -126,8 +141,13 @@ class BrandController extends Controller
         $old_image = $image->brand_image;
         unlink($old_image);
 
+        $notification = [
+            'message' => 'Brand Deleted.',
+            'alert-type' => 'error'
+        ];
+
         Brand::find($id)->delete();
-        return Redirect()->route('all.brand')->with('deleted', 'Brand Deleted Successfully.');
+        return Redirect()->route('all.brand')->with($notification);
 
     }
 
@@ -137,4 +157,5 @@ class BrandController extends Controller
         return Redirect()->route('login')->with('logout_succes','User logout successfull.');
     
     }
+
 }

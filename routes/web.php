@@ -5,13 +5,18 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\MultiPicController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ChangePasswordController;
 use App\Models\User;
+use App\Models\Multipic;
 
 Route::get('/', function () {
     $brands = DB::table('brands')->get();
-return view('home',compact('brands'));
+    $abouts = DB::table('home_abouts')->first();
+    $images = Multipic::all();
+    return view('home',compact('brands','abouts','images'));
 });
 
 // Route::get('about',function(){
@@ -73,10 +78,37 @@ Route::post('/store/slider',[HomeController::class,'store'])->name('store.slider
 Route::get('/slider/delete/{id}',[HomeController::class,'delete']);
 
 
+// HOME ABOUT ALL ROUTES
+Route::get('/home/about',[AboutController::class,'index'])->name('home.about');
+Route::get('/home/add',[AboutController::class,'add'])->name('add.about');
+Route::post('/home/store',[AboutController::class,'store'])->name('store.about');
+Route::get('/about/edit/{id}',[AboutController::class,'edit'])->name('edit.about');
+Route::post('/update/homeabout/{id}',[AboutController::class,'update']);
+Route::get('/about/delete/{id}',[AboutController::class,'delete'])->name('delete.about');
+
+// PORTFOLIO ROUTES
+Route::get('/portfolio',[AboutController::class,'portfolio'])->name('portfolio');
 
 
+// CONTACT ALL ROUTES
+Route::get('/admin/contact',[ContactController::class,'index'])->name('admin.contact');
+Route::get('/admin/contact/delete/{id}',[ContactController::class,'delete'])->name('admin.contact');
+Route::get('/admin/add/contact',[ContactController::class,'add'])->name('add.contact');
+Route::get('/admin/contact/messages',[ContactController::class,'admin_messages'])->name('admin.messages');
+Route::get('/admin/message/delete/{id}',[ContactController::class,'delete_message']);
+Route::post('/admin/store/contact',[ContactController::class,'store'])->name('store.contact');
 
+// FRONTEND CONTACT PAGE ROUTE
+Route::get('/contact',[ContactController::class,'contact'])->name('contact');
+Route::post('/contact/form',[ContactController::class,'contact_form'])->name('contact.form');
 
+// CHANGE PASSWORD ROUTE
+Route::get('/user/password',[ChangePasswordController::class,'index'])->name('change.password');
+Route::post('/password/update',[ChangePasswordController::class,'update'])->name('password.update');
+
+// USER PROFILE UPDATE
+Route::get('/user/profile',[ChangePasswordController::class,'profile_update'])->name('profile.update');
+Route::post('/user/profile/update',[ChangePasswordController::class,'update_profile'])->name('update.user.profile');
 
 
 
